@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -54,6 +55,7 @@ public class Waterfall extends SurfaceView implements Callback {
 		private boolean running = false;
 		private boolean lsb = false;
 		private double carrierfreq = 0;
+		private Bitmap tempBitmap;
 		private Bitmap waterfallBitmap;
 		private Canvas waterfallCanvas;
 		private int[] palette;
@@ -144,14 +146,16 @@ public class Waterfall extends SurfaceView implements Callback {
 		}
 		
 		private void scroll() {
-			waterfallCanvas.translate(0, 1);
+			Paint paint = new Paint();
+			tempBitmap = waterfallBitmap.copy(Config.ARGB_8888, false);
+			waterfallCanvas.drawBitmap(tempBitmap, 0, 1, paint);
 		}
 		
 		private void plot(int x, int y, int color) {
 			Paint paint = new Paint();
 			readPalette();
 			paint.setColor(palette[color]);
-			waterfallCanvas.drawRect(x, 0, x+1, 1, paint);
+			waterfallCanvas.drawPoint(x, 0, paint);
 		}
 		
 		private void readPalette() {

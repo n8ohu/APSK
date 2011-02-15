@@ -20,25 +20,6 @@
     android:layout_height="match_parent"
     >
     <TextView android:layout_height="match_parent" android:layout_weight="1" android:stackFromBottom="true" android:id="@+id/in" android:transcriptMode="alwaysScroll" android:layout_width="match_parent"></TextView>
-    <!--
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <EditText android:id="@+id/edit_text_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="bottom"
-        />
-        <Button android:id="@+id/button_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send"
-        />
-    </LinearLayout>
-    -->
     <net.thinkindifferent.apsk.Waterfall
     	android:id="@+id/waterfall"
     	android:layout_height="match_parent"

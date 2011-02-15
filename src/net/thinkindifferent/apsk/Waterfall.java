@@ -213,7 +213,7 @@ public class Waterfall extends SurfaceView implements Callback {
 		public void setFrequency(double f) {
 			Log.i(TAG, "WaterfallThread.setFrequency, f = " + f);
 			frequency = f;
-			initCanvas();
+			frequencyInTicks = (int)Math.round(frequency / hertzPerTick);
 		}
 		
 		public void setSurfaceSize(int width, int height) {
@@ -281,7 +281,7 @@ public class Waterfall extends SurfaceView implements Callback {
 			context.getWindowManager().getDefaultDisplay().getMetrics(dm);
 			int width = dm.widthPixels;
 			int x = Math.round(event.getX());
-			double f = 500 + 4000.0 * x / width;
+			double f = 4000.0 * x / width;
 			context.setFrequency(f);
 			thread.setFrequency(f);
 		}

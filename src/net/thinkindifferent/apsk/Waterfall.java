@@ -258,8 +258,10 @@ public class Waterfall extends SurfaceView implements Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
-		thread.setRunning(true);
-		thread.start();
+		if(!thread.running) {
+			thread.setRunning(true);
+			thread.start();
+		}
 	}
 
 	@Override

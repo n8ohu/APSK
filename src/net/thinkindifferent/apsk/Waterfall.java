@@ -290,4 +290,15 @@ public class Waterfall extends SurfaceView implements Callback {
 		}
 		return true;
 	}
+	
+	public void stopThread() {
+		boolean retry = true;
+		thread.setRunning(false);
+		while (retry) {
+			try {
+				thread.join();
+				retry = false;
+			} catch (InterruptedException e) { }
+		}
+	}
 }

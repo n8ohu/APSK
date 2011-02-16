@@ -29,6 +29,13 @@ public class APSK extends Activity implements Controller {
     }
     
     @Override
+    public void onPause() {
+    	Waterfall waterfall = (Waterfall)findViewById(R.id.waterfall);
+    	waterfall.stopThread();
+    	super.onPause();
+    }
+    
+    @Override
     public void onResume() {
     	super.onResume();
     	handler = new Handler();

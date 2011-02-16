@@ -10,7 +10,6 @@ import android.graphics.Bitmap.Config;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -59,11 +58,11 @@ public class Waterfall extends SurfaceView implements Callback {
 		private Bitmap waterfallBitmap;
 		private Canvas waterfallCanvas;
 		private int[] palette;
-		private LinkedBlockingQueue<Pair<Integer, double[]>> dataQueue;
+		private LinkedBlockingQueue<double[]> dataQueue;
 		
 		public WaterfallThread(SurfaceHolder holder) {
 			this.holder = holder;
-			dataQueue = new LinkedBlockingQueue<Pair<Integer, double[]>>();
+			dataQueue = new LinkedBlockingQueue<double[]>();
 		}
 		
 		@Override
@@ -79,11 +78,9 @@ public class Waterfall extends SurfaceView implements Callback {
 				synchronized (holder) {
 					Paint paint = new Paint();
 					while (!dataQueue.isEmpty()) {
-						Pair<Integer, double[]> p = dataQueue.poll();
-						int length = p.first;
-						double[] data = p.second;
+						double[] data = dataQueue.poll();
 						scroll();
-						for(int x = 0; x < length; x++) {
+						for(int x = 0; x < data.length; x++) {
 							double b = data[x];
 							plot(x, 0, (int)Math.round(b * 8));
 						}
@@ -116,7 +113,7 @@ public class Waterfall extends SurfaceView implements Callback {
 		
 		public void handleSpectrum(double[] data, int length) {
 			if (running) {
-				dataQueue.add(new Pair<Integer, double[]>(length, data));
+				dataQueue.add(data);
 			}
 		}
 		

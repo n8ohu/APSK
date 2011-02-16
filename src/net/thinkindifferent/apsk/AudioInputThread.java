@@ -3,6 +3,7 @@ package net.thinkindifferent.apsk;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
@@ -64,7 +65,8 @@ public class AudioInputThread extends Thread {
 	public boolean startAudio(WaveHandler waveHandler) {
 		stopAudio();
 		{
-			audioRecord = new AudioRecord(AudioSource.DEFAULT, deviceSampleRate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, 2 * AudioRecord.getMinBufferSize(deviceSampleRate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT));
+			int mono = Integer.parseInt(android.os.Build.VERSION.SDK) < 5 ? AudioFormat.CHANNEL_CONFIGURATION_MONO : AudioFormat.CHANNEL_IN_MONO;
+			audioRecord = new AudioRecord(AudioSource.DEFAULT, deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT, 2 * AudioRecord.getMinBufferSize(deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT));
 		}
 		if (audioRecord == null) {
 			return false;

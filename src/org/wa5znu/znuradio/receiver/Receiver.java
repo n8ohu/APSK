@@ -52,7 +52,6 @@ public class Receiver implements ReceiverHandler, WaveHandler, Controller {
       if(audioInputThread.startAudio(this)) {
 	failed=false;
 	setSampleRate(REQUIRED_SAMPLE_RATE);
-	audioInputThread.setPriority(10);
 	{
 	  if (spectrumThread != null) throw new RuntimeException("SpectrumThread!=null");
 	  spectrumThread = new SpectrumThread(this);

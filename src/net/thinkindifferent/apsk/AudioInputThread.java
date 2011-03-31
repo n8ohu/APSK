@@ -3,6 +3,7 @@ package net.thinkindifferent.apsk;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
+import android.os.Process;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -36,6 +37,7 @@ public class AudioInputThread extends Thread {
 		frameBytes = new byte[frameSize * 2];
 		frameByteBuffer = ByteBuffer.wrap(frameBytes).order(ByteOrder.LITTLE_ENDIAN);
 		data = new double[OUTPUT_SAMPLES * oversampleRate];
+		Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO);
 	}
 	
 	public void start() {

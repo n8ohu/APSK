@@ -55,7 +55,6 @@ public class Receiver implements ReceiverHandler, WaveHandler, Controller {
 	{
 	  if (spectrumThread != null) throw new RuntimeException("SpectrumThread!=null");
 	  spectrumThread = new SpectrumThread(this);
-	  spectrumThread.setPriority(1);
 	  spectrumThread.start();
 	}
 	break;

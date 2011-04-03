@@ -68,7 +68,7 @@ public class AudioInputThread extends Thread {
 		stopAudio();
 		{
 			int mono = Integer.parseInt(android.os.Build.VERSION.SDK) < 5 ? AudioFormat.CHANNEL_CONFIGURATION_MONO : AudioFormat.CHANNEL_IN_MONO;
-			audioRecord = new AudioRecord(AudioSource.DEFAULT, deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT, 2 * AudioRecord.getMinBufferSize(deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT));
+			audioRecord = new AudioRecord(AudioSource.DEFAULT, deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT, 2 * frameBytes.length); // AudioRecord.getMinBufferSize(deviceSampleRate, mono, AudioFormat.ENCODING_PCM_16BIT)
 		}
 		if (audioRecord == null) {
 			return false;
